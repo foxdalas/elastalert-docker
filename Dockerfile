@@ -13,7 +13,7 @@ ENV ELASTALERT_URL https://github.com/Yelp/elastalert/archive/v0.1.38.zip
 RUN mkdir -p ${CONFIG_DIR} ${RULES_DIR} ${LOG_DIR}
 
 # Install/Download deps and src
-RUN apk add --no-cache --update python-dev gcc ca-certificates openssl openssl-dev musl-dev libffi-dev yaml-dev && \
+RUN apk add --no-cache --update python-dev gcc ca-certificates openssl openssl-dev musl-dev libffi-dev yaml-dev libmagic && \
     easy_install pip && \
     cd /usr/src/ && \
     wget ${ELASTALERT_URL} && \
