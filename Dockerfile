@@ -7,13 +7,13 @@ ENV RULES_DIR /opt/rules
 ENV LOG_DIR /opt/logs
 ENV ELASTALERT_CONFIG ${CONFIG_DIR}/elastalert_config.yaml
 
-ENV ELASTALERT_URL https://github.com/Yelp/elastalert/archive/v0.1.8.zip
+ENV ELASTALERT_URL https://github.com/Yelp/elastalert/archive/v0.1.38.zip
 
 # Create directories.
 RUN mkdir -p ${CONFIG_DIR} ${RULES_DIR} ${LOG_DIR}
 
 # Install/Download deps and src
-RUN apk add --no-cache --update python-dev gcc ca-certificates openssl openssl-dev musl-dev libffi-dev && \
+RUN apk add --no-cache --update python-dev gcc ca-certificates openssl openssl-dev musl-dev libffi-dev yaml-dev && \
     easy_install pip && \
     cd /usr/src/ && \
     wget ${ELASTALERT_URL} && \
@@ -28,11 +28,8 @@ RUN cd /usr/src/elastalert* && \
 
 
 # Clean up.
-RUN apk del python-dev && \
-    apk del musl-dev && \
-    apk del libffi-dev && \
-    apk del openssl-dev && \
-    apk del gcc
+RUN apk del python-dev musl-dev libffi-dev openssl-dev gcc libffi-dev yaml-dev && \
+    rm -rf /var/cache/apk/*
 
 VOLUME [ "${CONFIG_DIR}", "${RULES_DIR}", "${LOG_DIR}"]
 
