@@ -19,7 +19,7 @@ jobs:
             BUILD_TAG="build"
             GIT_COMMIT=`git rev-parse HEAD`
             GIT_TAGS=`git tag --contains $GIT_COMMIT`
-            DOCKER_IMAGE="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+            DOCKER_IMAGE="$CIRCLE_PROJECT_USERNAME/elastalert"
             if [[ $GIT_TAGS = "" ]]
             then
               IMAGE_TAGS="canary"
